@@ -79,9 +79,12 @@ class ProductManager{
         console.log(`Se borro producto con exito. code: ${code}.`)
     }
 
-    modifyProduct(id,title,description,price,thumbnail,code,stock){
+    modifyProduct(id,argumentos){
         // Modifica un producto por id (no se puede modificar id)
-        // se deben pasar en false los campos que no se desean modificar
+        // se ingresa:
+        // id : id del producto a modificar 
+        // argumentos: objetos con clave = atributo a modificar ; valor: nuevo valor del atributo a modificar
+
 
         // obtengo todos los productos
         let productos=this.getProducts()
@@ -89,15 +92,14 @@ class ProductManager{
         let indice=productos.findIndex(producto=>producto.id===id)
         if(indice===-1){
             console.log(`No se encontró el producto con id ${id}. No se pudo modificar producto solicitado`)
-            return 
+        return 
         }
         let productoMod = productos[indice]
-
-        for (let i = 0; i < arguments.length; i++) {
-            const keys = ["id","title","description","price","thumbnail","code","stock"]
-            const parametro = arguments[i];
-            if (keys[i] !== id && parametro !== undefined && parametro !== null && parametro !== false) {
-                productoMod[keys[i]] = arguments[i];
+        for (let clave in argumentos) {
+            if (argumentos.hasOwnProperty(clave)) {
+                if (clave !== id && argumentos[clave] !== undefined && argumentos[clave] !== null) {
+                    productoMod[clave] = argumentos[clave];
+                }
             }
         }
         // sobreescribo el archivo con el producto modificado
@@ -106,13 +108,16 @@ class ProductManager{
         console.log(`Se modifico producto con exito. Id: ${id}.`)
         return 
     }
-
 } 
 
 
 
+
+
+
+
 // se crea el objeto para almacenar los proiductos
-let pm = new ProductManager("./files/productos.txt")
+let pm = new ProductManager("./productos.txt")
 
 // se imprime el objeto original
 console.log(pm.getProducts())
@@ -137,8 +142,8 @@ pm.addProduct("producto prueba","Este es un producto prueba",200,"Sin imagen","a
 console.log(pm.getProductById(3))
 
 
-// se imodifica stock de un producto
-pm.modifyProduct(2,false,false,false,false,false,30)
+// se imodifica stock de un producto y codigo de un producto
+pm.modifyProduct(2,{"stock":23,"code":"cba3212"})
 
 // se muestra objeto con los productos creados
 console.log(pm.getProducts())

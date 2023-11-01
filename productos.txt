@@ -1,0 +1,11 @@
+[
+	{
+		"id": 2,
+		"title": "producto prueba2",
+		"description": "Este es el segundo producto de prueba",
+		"price": 300,
+		"thumbnail": "Sin imagen 2",
+		"code": "cba3212",
+		"stock": 23
+	}
+]
