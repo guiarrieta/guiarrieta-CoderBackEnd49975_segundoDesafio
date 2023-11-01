@@ -62,21 +62,21 @@ class ProductManager{
         console.log(`Se agrego producto con exito. Id: ${id}.`)
     }
 
-    deleteProduct(code){
-        //borra un producto por codigo
+    deleteProduct(id){
+        //borra un producto por id
 
         // obtengo todos los productos
         let productos=this.getProducts()
          // chequeo si exite el producto con codigo solicitado
-        let existe=productos.findIndex(producto=>producto.code === code)
+        let existe=productos.findIndex(producto=>producto.id === id)
         if(existe===-1){
-            console.log(`No existe un producto con codigo ${code}. No se pudo borrar producto solicitado`)
+            console.log(`No existe un producto con id ${id}. No se pudo borrar producto solicitado`)
             return 
         }
             // borro el producto
         productos.splice(existe,1)
         fs.writeFileSync(this.path,JSON.stringify(productos, null, '\t'))
-        console.log(`Se borro producto con exito. code: ${code}.`)
+        console.log(`Se borro producto con exito. code: ${id}.`)
     }
 
     modifyProduct(id,argumentos){
@@ -148,8 +148,8 @@ pm.modifyProduct(2,{"stock":23,"code":"cba3212"})
 // se muestra objeto con los productos creados
 console.log(pm.getProducts())
 
-// se borra producto con codigo abc123
-pm.deleteProduct("abc123")
+// se borra producto con id
+pm.deleteProduct(1)
 
 // se muestra objeto con los productos creados
 console.log(pm.getProducts())
